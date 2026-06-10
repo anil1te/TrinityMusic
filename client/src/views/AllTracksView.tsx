@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Loader, Download, Play, Plus, Trash, DownloadCloud, CheckCircle } from 'lucide-react';
+import { Loader, Play, Plus, Trash, DownloadCloud, CheckCircle } from 'lucide-react';
 import { usePlayerStore } from '../store/usePlayerStore';
 import type { Track, DownloadItem } from '../store/usePlayerStore';
 import { apiFetch } from '../apiClient';
@@ -14,7 +14,7 @@ interface Props {
 
 export const AllTracksView: React.FC<Props> = ({ itemVariants, containerVariants }) => {
   const { 
-    library, setLibrary, user, addToLibrary, playTrack, playlists, setTrackToAdd,
+    library, setLibrary, user, playTrack, playlists, setTrackToAdd,
     isExtracting, setIsExtracting, downloadQueue, setDownloadQueue
   } = usePlayerStore();
   const [downloadUrl, setDownloadUrl] = useState('');
