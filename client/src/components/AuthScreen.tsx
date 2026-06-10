@@ -29,12 +29,26 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onClose, canClose }) => 
   const isAndroid = /android/i.test(navigator.userAgent);
 
   useEffect(() => {
+    // Если событие успело сработать до загрузки React
+    if ((window as any).deferredPrompt) {
+      setDeferredPrompt((window as any).deferredPrompt);
+    }
+
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
     };
+
+    const handleAppInstallPrompt = () => {
+      setDeferredPrompt((window as any).deferredPrompt);
+    };
+
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    window.addEventListener('app-install-prompt', handleAppInstallPrompt);
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener('app-install-prompt', handleAppInstallPrompt);
+    };
   }, []);
 
   const handleInstallClick = async () => {

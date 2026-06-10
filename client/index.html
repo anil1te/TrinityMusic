@@ -19,6 +19,14 @@
     <meta name="apple-mobile-web-app-title" content="Trinity">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Trinity</title>
+    <script>
+      window.deferredPrompt = null;
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        window.deferredPrompt = e;
+        window.dispatchEvent(new Event('app-install-prompt'));
+      });
+    </script>
   </head>
   <body>
     <div id="root"></div>
